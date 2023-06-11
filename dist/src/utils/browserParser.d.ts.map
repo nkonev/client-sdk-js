@@ -1,0 +1,1 @@
+{"version":3,"file":"browserParser.d.ts","sourceRoot":"","sources":["../../../src/utils/browserParser.ts"],"names":[],"mappings":"AAKA,MAAM,MAAM,iBAAiB,GAAG,QAAQ,GAAG,SAAS,GAAG,QAAQ,CAAC;AAEhE,MAAM,MAAM,cAAc,GAAG;IAC3B,IAAI,EAAE,iBAAiB,CAAC;IACxB,OAAO,EAAE,MAAM,CAAC;CACjB,CAAC;AAIF;;GAEG;AACH,wBAAgB,UAAU,CAAC,SAAS,CAAC,EAAE,MAAM,EAAE,KAAK,UAAO,8BAU1D"}

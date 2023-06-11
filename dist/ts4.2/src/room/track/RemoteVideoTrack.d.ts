@@ -1,0 +1,53 @@
+import RemoteTrack from './RemoteTrack';
+import type { AdaptiveStreamSettings } from './types';
+export default class RemoteVideoTrack extends RemoteTrack {
+    private prevStats?;
+    private elementInfos;
+    private adaptiveStreamSettings?;
+    private lastVisible?;
+    private lastDimensions?;
+    private isObserved;
+    constructor(mediaTrack: MediaStreamTrack, sid: string, receiver?: RTCRtpReceiver, adaptiveStreamSettings?: AdaptiveStreamSettings);
+    get isAdaptiveStream(): boolean;
+    get mediaStreamTrack(): MediaStreamTrack;
+    /** @internal */
+    setMuted(muted: boolean): void;
+    attach(): HTMLMediaElement;
+    attach(element: HTMLMediaElement): HTMLMediaElement;
+    /**
+     * Observe an ElementInfo for changes when adaptive streaming.
+     * @param elementInfo
+     * @internal
+     */
+    observeElementInfo(elementInfo: ElementInfo): void;
+    /**
+     * Stop observing an ElementInfo for changes.
+     * @param elementInfo
+     * @internal
+     */
+    stopObservingElementInfo(elementInfo: ElementInfo): void;
+    detach(): HTMLMediaElement[];
+    detach(element: HTMLMediaElement): HTMLMediaElement;
+    /** @internal */
+    getDecoderImplementation(): string | undefined;
+    protected monitorReceiver: () => Promise<void>;
+    private getReceiverStats;
+    private stopObservingElement;
+    protected handleAppVisibilityChanged(): Promise<void>;
+    private readonly debouncedHandleResize;
+    private updateVisibility;
+    private updateDimensions;
+}
+export interface ElementInfo {
+    element: object;
+    width(): number;
+    height(): number;
+    visible: boolean;
+    pictureInPicture: boolean;
+    visibilityChangedAt: number | undefined;
+    handleResize?: () => void;
+    handleVisibilityChanged?: () => void;
+    observe(): void;
+    stopObserving(): void;
+}
+//# sourceMappingURL=RemoteVideoTrack.d.ts.map
