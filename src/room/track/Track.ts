@@ -300,10 +300,13 @@ export function attachToElement(track: MediaStreamTrack, element: HTMLMediaEleme
     element.playsInline = true;
   }
 
+  console.log("before avoiding flicker code")
   // avoid flicker
   if (element.srcObject !== mediaStream) {
+    console.log("avoiding flicker code - first condition passed : element.srcObject !== mediaStream")
     element.srcObject = mediaStream;
     if ((isSafari() || isFireFox()) && element instanceof HTMLVideoElement) {
+      console.log("avoiding flicker code - second condition passed safari or ff and element instanceof HTMLVideoElement")
       // Firefox also has a timing issue where video doesn't actually get attached unless
       // performed out-of-band
       // Safari 15 has a bug where in certain layouts, video element renders
@@ -311,16 +314,19 @@ export function attachToElement(track: MediaStreamTrack, element: HTMLMediaEleme
       // Resetting the src triggers it to render.
       // https://developer.apple.com/forums/thread/690523
       setTimeout(() => {
+        console.log("avoiding flicker code - inside setTimeout()")
         element.srcObject = mediaStream;
         // Safari 15 sometimes fails to start a video
         // when the window is backgrounded before the first frame is drawn
         // manually calling play here seems to fix that
-        element.play().catch(() => {
+        element.play().catch((e) => {
+          console.warn("avoiding flicker code - err in play", e)
           /* do nothing */
         });
       }, 0);
     }
   }
+  console.log("after avoiding flicker code")
 }
 
 /** @internal */
